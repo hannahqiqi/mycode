@@ -1,0 +1,113 @@
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"> 
+        <title>Javascript实现计算器</title>
+        <style>
+            .tbl_caculate button {
+                width: 40px;
+                height: 20px;
+                font-size: 10px;
+            }
+        </style>
+        
+    </head>
+    <body>
+        <div>
+            <input type="float" id="num" style="width: 200px;" value="" readonly="readonly">
+        </div>
+        <table class="tbl_caculate">
+            <tr>
+                <td colspan="2"><button style="width: 80px; height: 20px;" type="button"id="btn10" value="AC" onclick="clearNum()">AC</button></td>
+                <td colspan="2"><button style="width: 80px; height: 20px;" type="button" id="btn11" value="Del" onclick="backSpace()">Del</button></td>
+            </tr>
+            <tr>
+                <td><button type="button" id="btn7" value="7" onclick="onButton(this)">7</button></td>
+                <td><button type="button" id="btn8" value="8" onclick="onButton(this)">8</button></td>
+                <td><button type="button" id="btn9" value="9" onclick="onButton(this)">9</button></td>
+                <td><button type="button" id="btnchu" value="/" onclick="onOperate(this)">/</button></td>
+            </tr>
+            <tr>
+                <td><button type="button" id="btn4" value="4" onclick="onButton(this)">4</button></td>
+                <td><button type="button" id="btn5" value="5" onclick="onButton(this)">5</button></td>
+                <td><button type="button" id="btn6" value="6" onclick="onButton(this)">6</button></td>
+                <td><button type="button" id="btncheng" value="*" onclick="onOperate(this)">*</button></td>
+            </tr>
+            <tr>
+                <td><button type="button" id="btn1" value="1" onclick="onButton(this)">1</button></td>
+                <td><button type="button" id="btn2" value="2" onclick="onButton(this)">2</button></td>
+                <td><button type="button" id="btn3" value="3" onclick="onButton(this)">3</button></td>
+                <td><button type="button" id="btnjian" value="-" onclick="onOperate(this)">-</button></td>
+            </tr>
+            <tr>
+                <td><button type="button" id="btn0" value="0" onclick="onButton(this)">0</button></td>
+                <td><button type="button" id="btndian" value="." onclick="onButton(this)">.</button></td>
+                <td><button type="button" id="btndeng" value="=" onclick="getResult()">=</button></td>
+                <td><button type="button" id="btnjia" value="+" onclick="onOperate(this)">+</button></td>
+            </tr>
+            
+        </table>
+        
+        <script>
+            var txt = document.getElementById("num");
+            
+            var operator;
+            var result;
+            var isPressEqualBtn = false;
+            
+            function onButton(num) {
+                if(isPressEqualBtn) {
+                    txt.value = "";
+                    isPressEqualBtn = false;
+                }
+                
+                if(isPressEqualBtn) {
+                    txt.value = "";
+                    isPressEqualBtn = false;
+                }
+
+                if(txt.value.indexOf(".") != -1 && num.value == ".") {
+                    return false;
+                }       
+                txt.value += num.value;    
+            }
+            
+            function clearNum() {
+                result = "";
+                txt.value = "";
+                operator = "";
+            }
+            
+            function backSpace() {
+                txt.value = txt.value.substring(0, txt.value.length-1);
+            }
+            
+            function onOperate(opr) {
+                operator = opr.value;
+                if(txt.value == "") {
+                    return false;
+                }
+                result = txt.value;
+                txt.value = "";    
+            }
+            
+            function getResult() {
+                var opValue;
+                var srcValue = parseFloat(result);
+                if(operator == "+") {
+                    opValue = srcValue + parseFloat(txt.value);
+                } else if(operator == "-") {
+                    opValue = srcValue - parseFloat(txt.value);
+                } else if(operator == "*") {
+                    opValue = srcValue * parseFloat(txt.value);
+                } else {
+                    opValue = srcValue / parseFloat(txt.value);
+                }
+                txt.value = opValue;
+                isPressEqualBtn = true;
+                result = "";
+                opValue = "";
+            }
+            
+        </script>
+    </body>
+</html>
